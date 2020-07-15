@@ -1,0 +1,251 @@
+
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Title Page</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <style>
+      body{
+        padding: 10px;
+        direction: rtl;
+      }
+      th,td{
+        font-size: 16px;
+      }
+      .row{
+        margin: 0;
+      }
+      #print-note{
+        font-size: 2rem;
+        font-weight: 700;
+      }
+      @media print
+      {    
+          .no-print, .no-print *
+          {
+              display: none !important;
+          }
+          .print{
+            display: block !important;
+          }
+      }
+    </style>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body lang="ar" dir="rtl">
+      
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+        <h2 class="text-center">
+          اذن <span class="print-type">استلام</span> بضاعه      
+        </h2>
+      </div>
+
+      <div class="input-group">
+        
+        <select name="type" id="type" class="form-control print-no"  required="required">
+          <option value="استلام" selected>استلام</option>
+          <option value="صرف" aria-selected="">صرف</option>
+          <option value="مرتجع" aria-selected="">مرتجع</option>
+        </select>
+      </div>
+
+      
+      <h3 class="col-xs-6 ">رقم الاذن : <span class="print-no"></span> </h3> 
+      
+      <div class="input-group">
+        <input type="text" name="no-number" id="no-number" class="form-control no-print" value="" required="required" pattern="" placeholder="رقم الاذن">
+      </div>
+      <h3 class="col-xs-6 " >التاريخ : <span class="print-date"></span></h3>
+      <div class="input-group">
+        <input type="date" name="date" id="date" required="required" class="form-control no-print">
+      </div>
+      <h3 class="">يصرح بصرف بضاعه إلي :  <span class="print-name"></span></h3>
+      <div class="input-group">
+        <input type="text" name="no-name" id="no-name" class="form-control no-print" value="" required="required" pattern="" placeholder="اسم العميل">
+      </div>
+    <table id="table_count" class="table table-bordered table-hover text-center">
+      <thead>
+        <tr>
+          <th class="text-center">اسم الصنف</th>
+          <th class="text-center">الكمية</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      </tbody>
+    </table>
+    
+    
+    <table id="table_srial" class="table table-bordered table-hover text-center">
+      <thead>
+        <tr>
+          <th class="text-center">اسم الصنف</th>
+          <th class="text-center">السريال</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      </tbody>
+    </table>
+
+    <p class="text-center" id="print-note"></p>
+
+    <div class="col-xs-12">
+      <div class="input-group">
+        <textarea name="note" id="note" class="form-control no-print" cols="50" rows="5" placeholder="ملاحظات"></textarea>
+      </div>
+    </div>
+
+    <br>
+
+    <h3 class="">امضاء: </h3>
+
+
+
+    <form action="" id="sriales" class="no-print">
+        
+        <div class="row">
+          <div class="col-xs-4">
+            <div class="input-group">
+              <textarea name="srial" id="srial" class="form-control" cols="30" rows="10"></textarea>
+            </div>
+          </div>
+          <div class="col-xs-4">
+            
+            <div class="input-group">
+              <input type="number" name="count" id="count" class="form-control" value="0" required="required"  min="1" placeholder="الكميه" title="count">
+            </div>
+          </div>
+          <div class="col-xs-4">
+            <div class="input-group">
+              <input type="text" name="product" id="product" class="form-control" value="" required="required"  placeholder="اسم الصنف" title="product">
+            </div>
+          </div>
+        </div>
+
+      
+      <button type="submit" class="btn btn-success">أضافة</button>
+      
+    </form >
+    <button type="buttun" onclick="reset()" class="btn btn-primary no-print  pull-left">فاتوره جديده</button>
+    <!-- jQuery -->
+    <script src="jquery.min.js"></script>
+    <!-- Bootstrap JavaScript -->
+    <script src="bootstrap.min.js"></script>
+    <script src="jquery.toast.min.js"></script>
+    <script src="sweetalert2@9.js"></script>
+
+    <script>  
+
+    function reset() {
+      $( "#table_count tbody" ).empty();
+      $( "#table_srial tbody" ).empty();
+      $( "#srial" ).val(null);
+      $( "#count" ).val(null) ;
+      $( "#product" ).val(null);
+      $( "#product" ).focus();
+
+      $( "#no-number" ).val(null);
+$('.print-no').empty();
+$( "#date" ).val(null);
+$('.print-date').empty();
+$( "#no-name" ).val(null);
+$('.print-name').empty();
+    }
+      $( "#sriales" ).submit(function( event ) {  
+        event.preventDefault();  
+        if ( $( "#srial" ).val() != "" && $( "#count" ).val() != "" && $( "#product" ).val() != "" ) {  
+          if ( $( "#srial" ).val() != null && $( "#count" ).val() != null && $( "#product" ).val() != null ) { 
+            console.log($( "#srial" ).val().split('\n'));
+            var srialArray = $( "#srial" ).val().split('\n');
+            var NewArray = [];
+            srialArray.forEach(srial => {
+              var trimSrial = srial.trim();
+              if(trimSrial != null && trimSrial != " " && trimSrial != ""){
+                  NewArray.push(trimSrial);
+              }
+            });
+            if(NewArray.length != $( "#count" ).val()){
+              console.log('لا يساوي');
+              Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: 'عدد السريالات لا يساوي العدد المطلوب',
+                  footer: 'عدد السريال :'+NewArray.length
+                })
+            }else{
+              var tr = `<tr>
+                  <td>${$( "#product" ).val()}</td>
+                  <td>${$( "#count" ).val()}</td>
+                </tr>`;
+              $( "#table_count" ).append(tr)
+
+              for (let i = 0; i < NewArray.length; i++) {
+                const srial = NewArray[i];
+                if(srial != null && srial != " " && srial != ""){
+                  var trSrial = `<tr>
+                      <td>${$( "#product" ).val()}</td>
+                      <td>${srial}</td>
+                    </tr>`;
+                  $( "#table_srial" ).append(trSrial)
+                }
+              }
+
+              Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'تمت الاضافه بنجاح',
+                showConfirmButton: false,
+                timer: 1500
+              })
+              $( "#srial" ).val(null);
+              $( "#count" ).val(null) ;
+              $( "#product" ).val(null);
+              $( "#product" ).focus();
+         
+            }
+
+          }
+          // $("span").text( "Submitted Successfully." ).show();  
+          return;  
+        }  
+        return;  
+
+        // $( "span" ).text( "Not valid!" ).show().fadeOut( 2000 );  
+      });  
+
+      $( "#no-number" ).keyup(function() {
+        $('.print-no').text($( "#no-number" ).val());
+      });
+
+      $( "#date" ).change(function() {
+        $('.print-date').text($( "#date" ).val());
+      });
+
+      $( "#no-name" ).keyup(function() {
+        $('.print-name').text($( "#no-name" ).val());
+      });
+
+      $( "#type" ).change(function() {
+        $('.print-type').text($( "#type" ).val());
+      });
+
+      $( "#note" ).keyup(function() {
+        $('#print-note').text($( "#note" ).val());
+      });
+      
+
+    </script> 
+  </body>
+</html>
+
